@@ -9,9 +9,18 @@
     </form>
 
 
-    <ul class="news__list">
-        <li v-bind:v-for="article in articles" class="news__item">{{ article.title }}</li>
- </ul>
+    <div id="articlearea">
+        <div v-for="article in articles" class="card" style="width: 18rem;">
+            <img class="card-image" v-bind:src=article.urlToImage v-bind:alt=article.title>
+            <div class="card-body">
+                <h5 class="card-title">{{ article.title }}</h5>
+                <p class="card-text">{{article.description}}</p>
+            </div>
+        </div>
+    </div>
+
+
+    
 </template>
 
 
@@ -46,7 +55,6 @@ export default {
 
     created() {
         let self = this;
-
         fetch('https://newsapi.org/v2/top-headlines?country=us',
 {
     headers: {
@@ -66,10 +74,10 @@ export default {
 
 
 <style>
-div#articles{
+div#articlearea {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-row-gap: 2em;
+    grid-row-gap: 1em;
     width: 100%;
     margin-top: 2em;
     justify-content: space-evenly;
@@ -77,14 +85,16 @@ div#articles{
     align-content: space-evenly;
     align-items: center;
 }
-div.card img{
+
+div.card {
+    width: 20rem !important;
+    height: 33rem;
+    border-bottom: solid #41B883 .3em;
+}
+
+div.card-image {
     object-fit: cover;
     height: 10rem;
-}
-div.card{
-    width: 20rem !important;
-    height: 35rem;
-    border-bottom: solid #41B883 .3em;
 }
 
 </style>
